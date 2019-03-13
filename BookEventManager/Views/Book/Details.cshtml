@@ -1,0 +1,88 @@
+﻿@model Shared_Library.BookDTO
+
+@{
+    ViewBag.Title = "DetailsAction";
+}
+
+<h2>DetailsAction</h2>
+
+
+<div>
+    <h4>BookDTO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+        @if (!string.IsNullOrWhiteSpace(Model.Duration.ToString()))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Duration)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Duration)
+            </dd>
+        }
+            @if (!string.IsNullOrWhiteSpace(Model.Description))
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Model.OtherDetails))
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.OtherDetails)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OtherDetails)
+                </dd>
+            }
+
+
+            
+
+        </dl>
+</div>
+<p>
+    @if (Session["id"] != null)
+    {
+    @Html.ActionLink("Edit", "EditMyEvent", Model);
+    @Html.ActionLink("Back to List", "ViewEvent");
+    }
+</p>

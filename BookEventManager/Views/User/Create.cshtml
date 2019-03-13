@@ -1,0 +1,25 @@
+﻿@using Shared_Library;
+@model CreateUserDTO
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Register </h2>
+
+@using (Html.BeginForm("RegisterUser", "User", FormMethod.Post))
+{
+    @Html.LabelFor(model => model.Email)
+    @Html.EditorFor(model => model.Email)
+    @Html.ValidationMessageFor(model => model.Email)
+    <br>
+    @Html.LabelFor(model => model.Password)
+    @Html.PasswordFor(model => model.Password)
+    @Html.ValidationMessageFor(model => model.Password)
+    <br>
+    @Html.LabelFor(model => model.FullName)
+    @Html.EditorFor(model => model.FullName)
+    @Html.ValidationMessageFor(model => model.FullName)
+    <br>
+
+    <input type="submit" value="Submit" />
+}

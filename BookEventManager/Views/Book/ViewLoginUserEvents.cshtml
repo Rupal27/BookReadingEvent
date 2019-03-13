@@ -1,0 +1,45 @@
+﻿@using Shared_Library;
+@model List<BookDTO>[]
+@{
+    ViewBag.Title = "ViewLoginUserEvents";
+}
+
+
+
+<h1>
+    Here are the Book Events created by user
+</h1>
+
+
+
+<h2>
+    Past events:
+
+</h2>
+
+
+
+@foreach (BookDTO Event in Model[0])
+{
+    <br />
+
+    @Html.ActionLink(Event.Title, "DetailsAction", "Book", Event, null)
+}
+
+<h2>
+    Future events:
+
+</h2>
+
+
+@foreach (BookDTO Event in Model[1])
+{
+    <br />
+    @Html.ActionLink(Event.Title, "DetailsAction", "Book", Event, null)
+}
+
+
+
+
+
+

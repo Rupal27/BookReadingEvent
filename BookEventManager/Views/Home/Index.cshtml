@@ -1,0 +1,28 @@
+﻿@using Shared_Library;
+@model List<BookDTO>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<h1>
+    Past Events &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp; Future Events
+</h1>
+
+<h3>
+    The details are as follows:
+
+</h3>
+@foreach (BookDTO Event in Model)
+{
+    <br />
+    @Event.Title;
+}
+
+
+
+
+
