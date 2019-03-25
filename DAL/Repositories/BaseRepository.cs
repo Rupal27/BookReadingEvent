@@ -4,24 +4,25 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Shared_Library.Interface;
 using System.Threading.Tasks;
 using BookEventManager.DAL;
-using DAL.Repository;
+
 
 namespace DAL.Repositories
 {
     public class BaseRepository<T> : IRepository<T> where T : class
     {
+        public IUnitofWork _unitofwork;
+        
+        public DbSet<T> dbSet;
 
-        private DatabaseContext context;
-        private DbSet<T> dbSet;
+        public BaseRepository(IUnitofWork unit)
+            {
+               _unitofwork=unit;
+                dbSet = unit.Db.Set<T>();
+             }
 
-        public BaseRepository(DatabaseContext context)
-        {
-            
-            this.context = context;
-            this.dbSet = context.Set<T>();
-        }
 
         public void Delete(int id)
         {
@@ -41,19 +42,21 @@ namespace DAL.Repositories
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return context.Set<T>().Where(predicate);
+            return dbSet.Where(predicate);
         }
 
         public void Insert(T value)
         {
             dbSet.Add(value);
+            _unitofwork.Save();
         }
 
         public void Update(T obj)
         {
             
             dbSet.Attach(obj);
-            context.Entry(obj).State = EntityState.Modified;
+            _unitofwork.Db.Entry(obj).State = EntityState.Modified;
+            _unitofwork.Save();
         }
     }
 }

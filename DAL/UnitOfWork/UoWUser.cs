@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookEventManager.DAL;
 using DAL.Domain;
 using DAL.Repositories;
-using DAL.Repository;
+
 using Shared_Library.Interface;
 
-namespace DAL
+namespace DAL.UnitOfWork
 {
     public class UoWUser : IUnitofWork
     {
         private DatabaseContext context;
-        private IRepository<User> userRepository;
+      
        
 
         public UoWUser(DatabaseContext context)
@@ -22,19 +23,12 @@ namespace DAL
             this.context = context;
         }
 
-       
-        public IRepository<User> UserRepository
+      
+        public DbContext Db
         {
-            get
-            {
-                if (this.userRepository == null)
-                {
-                    this.userRepository = new BaseRepository<User>(context);
-                }
-                return userRepository;
-            }
-        }
 
+            get { return context; }
+        }
         public void Save()
         {
             context.SaveChanges();

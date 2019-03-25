@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 
 
-namespace DAL.Repository
+namespace Shared_Library.Interface
 {
     public interface IRepository<T> where T : class
     {

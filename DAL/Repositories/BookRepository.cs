@@ -6,20 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using BookEventManager.DAL;
 using DAL.Domain;
-using DAL.Repository;
+using DAL.InterfaceRepo;
+using DAL.UnitOfWork;
 using Shared_Library.Interface;
 
 namespace DAL.Repositories
 {
     public class BookRepository : BaseRepository<BookReadingEvent>, IBookRepo
     {
-        private DatabaseContext context;
-        
-        public BookRepository(DatabaseContext context): base(context)
+       
+       
+        public BookRepository(IUnitofWork unit):base(unit)
         {
-            this.context = context;
+            _unitofwork = unit;
         }
 
-               
+
     }
 }

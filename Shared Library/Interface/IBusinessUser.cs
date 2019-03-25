@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Shared_Library.Interface
 {
-    public interface IUserRepo
+   public interface IBusinessUser
     {
+        void InsertUser(CreateUserDTO value);
+        void DeleteUser(int id);
+        LoginUserDTO LoginUser(LoginUserDTO login);
     }
 }

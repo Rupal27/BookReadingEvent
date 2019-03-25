@@ -1,36 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookEventManager.DAL;
 using DAL.Domain;
 using DAL.Repositories;
-using DAL.Repository;
+
 using Shared_Library.Interface;
 
 namespace DAL.UnitOfWork
 {
       public class UoWBook : IUnitofWork
     {
-        private DatabaseContext context;
-        private IRepository<BookReadingEvent> bookRepository;
-
+                private DatabaseContext context;
+     
         public UoWBook(DatabaseContext context)
         {
             this.context = context;
         }
 
-        public IRepository<BookReadingEvent> BookRepository
-        {
-            get
-            {
-                if (this.bookRepository == null)
-                {
-                    this.bookRepository = new BaseRepository<BookReadingEvent>(context);
-                }
-                return bookRepository;
-            }
+        public DbContext Db {
+
+            get { return context; }
         }
 
         public void Save()

@@ -4,16 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Shared_Library;
-using BAL;
+using Shared_Library.Interface;
+using BLL;
 
 
 namespace BookEventManager.Controllers
 {
     public class BookController : Controller
     {
-        BusinessLogic logic = new BusinessLogic();
+        IBusinessBook _busibook;/*= new BusinessLogicBook();*/
 
-        // GET: Book
+        public BookController(IBusinessBook busibook)
+        {
+            _busibook = busibook;
+        }
+
         public ActionResult CreateBookReadingEvent()
         {
             return View("BookEvent");
@@ -26,7 +31,7 @@ namespace BookEventManager.Controllers
             if (ModelState.IsValid)
             {
                 book.UserID = int.Parse(Session["id"].ToString());
-                logic.InsertBook(book);
+                _busibook.InsertBook(book);
 
                 return RedirectToAction("ViewAction");
 
@@ -43,7 +48,7 @@ namespace BookEventManager.Controllers
             var booklist = new List<BookDTO>();
             var beforeevent = new List<BookDTO>();
             var afterevent = new List<BookDTO>();
-            booklist = logic.GetAll();
+            booklist = _busibook.GetAll();
 
             foreach (BookDTO element in booklist)
             {
@@ -79,7 +84,7 @@ namespace BookEventManager.Controllers
         public ActionResult EditEventPost(BookDTO book)
         {
             int id = int.Parse(Session["id"].ToString());
-            logic.Update(book);
+            _busibook.Update(book);
             return View("Details", book);
 
         }
@@ -91,7 +96,7 @@ namespace BookEventManager.Controllers
             var beforeevent = new List<BookDTO>();
             var afterevent = new List<BookDTO>();
             int id = int.Parse(Session["id"].ToString());
-            booklist = logic.GetAllList(id);
+            booklist = _busibook.GetAllList(id);
             foreach (BookDTO element in booklist)
             {
                 if (element.Date < DateTime.Now)
